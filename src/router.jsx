@@ -10,7 +10,6 @@ import SingleProduct from "./views/front/SingleProduct";
 import FrontendLayout from "./layout/FrontendLayout";
 import AdminLayout from "./layout/AdminLayout";
 import AdminProducts from "./views/admin/AdminProducts";
-import AdminOrders from "./views/admin/AdminOrders";
 
 export const router = createHashRouter([
   {
@@ -46,11 +45,7 @@ export const router = createHashRouter([
       {
         path: "products",
         element: <AdminProducts />,
-      },
-      {
-        path: "orders",
-        element: <AdminOrders />,
-      },
+      }
     ],
   },
   {

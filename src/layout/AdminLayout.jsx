@@ -26,11 +26,6 @@ const AdminLayout = () => {
                   📦 產品管理
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/admin/orders">
-                  📑 訂單管理
-                </Link>
-              </li>
             </ul>
           </div>
         </div>
