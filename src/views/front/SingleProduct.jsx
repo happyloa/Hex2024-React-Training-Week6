@@ -1,14 +1,41 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
+
+const API_BASE = import.meta.env.VITE_API_BASE;
+const API_PATH = import.meta.env.VITE_API_PATH;
 
 const SingleProduct = () => {
   const location = useLocation();
   const product = location.state?.productData.product;
+  const [isAdded, setIsAdded] = useState(false); // 控制按鈕狀態
+  const [message, setMessage] = useState(""); // 顯示加入購物車的訊息
 
   if (!product) {
     return (
       <div className="container mt-5 text-center">沒有可用的產品資料。</div>
     );
   }
+
+  // 加入購物車 API
+  const addToCart = async () => {
+    try {
+      const response = await axios.post(`${API_BASE}/api/${API_PATH}/cart`, {
+        data: {
+          product_id: product.id,
+          qty: 1, // 預設數量為 1
+        },
+      });
+
+      if (response.data.success) {
+        setIsAdded(true);
+        setMessage("✅ 已成功加入購物車！");
+      }
+    } catch (error) {
+      console.error("加入購物車時發生錯誤：", error);
+      setMessage("❌ 加入購物車失敗，請稍後再試");
+    }
+  };
 
   return (
     <div className="container mt-5">
@@ -47,9 +74,17 @@ const SingleProduct = () => {
           </div>
 
           {/* CTA 按鈕 */}
-          <button className="btn btn-primary btn-lg w-100 mt-3">
-            立即租借
+          <button
+            className={`btn btn-lg w-100 mt-3 ${
+              isAdded ? "btn-secondary" : "btn-primary"
+            }`}
+            onClick={addToCart}
+            disabled={isAdded}>
+            {isAdded ? "已加入購物車" : "立即租借"}
           </button>
+
+          {/* 顯示加入購物車的訊息 */}
+          {message && <p className="text-center mt-2 fw-bold">{message}</p>}
         </div>
       </div>
     </div>
