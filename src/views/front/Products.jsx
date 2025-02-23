@@ -35,13 +35,19 @@ const Product = () => {
     <div>
       {/* Hero 區塊 */}
       <section
-        className="hero text-center text-white d-flex align-items-center"
+        className="hero position-relative text-center text-white d-flex align-items-center"
         style={{
           background:
             "url('https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=2128&auto=format&fit=crop') center/cover",
           height: "400px",
         }}>
-        <div className="container">
+        {/* 遮罩層 */}
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100"
+          style={{ background: "rgba(0, 0, 0, 0.6)", zIndex: "1" }}></div>
+
+        {/* Hero 內文 */}
+        <div className="container position-relative z-2">
           <h1 className="display-4 fw-bold">📚 探索你的下一本好書</h1>
           <p className="lead">
             精選數千本熱門書籍，立即租借，開啟你的閱讀旅程！
