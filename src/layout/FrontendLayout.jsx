@@ -7,7 +7,7 @@ const FrontendLayout = () => {
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div className="container">
           <Link className="navbar-brand fw-bold" to="/">
-            我的網站
+            線上書屋
           </Link>
           <button
             className="navbar-toggler"
