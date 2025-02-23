@@ -54,12 +54,12 @@ const Home = () => {
             數千本書籍任你選擇，隨時隨地輕鬆租借，開啟你的閱讀之旅！
           </p>
           <Link to="/product" className="btn btn-primary btn-lg">
-            立即開始租書
+            立即開始租書 <i className="fas fa-arrow-right"></i>
           </Link>
         </div>
       </section>
 
-      {/* 特色區塊 (美化) */}
+      {/* 特色區塊 */}
       <section className="features py-5 text-center bg-light">
         <div className="container">
           <h2 className="mb-4">✨ 為什麼選擇我們？</h2>
@@ -109,7 +109,9 @@ const Home = () => {
 
       {/* 最新書籍區塊 */}
       <section className="container mt-5">
-        <h2 className="text-center mb-4">📚 最新書籍</h2>
+        <h2 className="text-center mb-4">
+          <i className="fas fa-book"></i> 最新書籍
+        </h2>
         <div className="row">
           {books.length > 0 ? (
             books.slice(0, 6).map((book) => (
@@ -132,25 +134,27 @@ const Home = () => {
                     <button
                       className="btn btn-outline-primary w-100 mt-auto"
                       onClick={() => handleViewMore(book.id)}>
-                      查看詳情
+                      <i className="fas fa-eye"></i> 查看詳情
                     </button>
                   </div>
                 </div>
               </div>
             ))
           ) : (
-            <p className="text-center">📖 書籍載入中...</p>
+            <p className="text-center">
+              <i className="fas fa-spinner fa-spin"></i> 書籍載入中...
+            </p>
           )}
         </div>
       </section>
 
-      {/* CTA (Call to Action) 區塊 */}
+      {/* CTA 區塊 */}
       <section className="cta bg-primary text-white py-5 text-center mt-5">
         <div className="container">
           <h2>準備好開始閱讀了嗎？</h2>
           <p className="lead">立即註冊會員，開啟你的閱讀旅程！</p>
           <Link to="#" className="btn btn-light btn-lg">
-            立即註冊
+            立即註冊 <i className="fas fa-arrow-right"></i>
           </Link>
         </div>
       </section>
