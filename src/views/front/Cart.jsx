@@ -118,7 +118,7 @@ const Cart = () => {
                                 item.product_id
                               )
                             }>
-                            -
+                            <i className="fas fa-minus"></i>
                           </button>
                           <span className="mx-2">{item.qty}</span>
                           <button
@@ -130,7 +130,7 @@ const Cart = () => {
                                 item.product_id
                               )
                             }>
-                            +
+                            <i className="fas fa-plus"></i>
                           </button>
                         </td>
                         <td className="fw-bold text-primary">
@@ -143,7 +143,7 @@ const Cart = () => {
                           <button
                             className="btn btn-danger btn-sm"
                             onClick={() => removeItem(item.id)}>
-                            ❌ 刪除
+                            <i className="fas fa-trash-alt"></i>
                           </button>
                         </td>
                       </tr>
@@ -161,7 +161,9 @@ const Cart = () => {
                   總金額:{" "}
                   <span className="fw-bold text-danger">NT${totalPrice}</span>
                 </p>
-                <button className="btn btn-success w-100 mt-3">前往結帳</button>
+                <button className="btn btn-success w-100 mt-3">
+                  <i className="fa-solid fa-money-bill"></i> 前往結帳
+                </button>
               </div>
             </div>
           </div>
