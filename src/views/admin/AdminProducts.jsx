@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import * as bootstrap from "bootstrap";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -59,7 +60,10 @@ const AdminProduct = () => {
   const openProductModal = (product = {}) => {
     setIsEdit(!!product.id);
     setTempProduct(product);
-    const modal = new bootstrap.Modal(document.getElementById("productModal"));
+
+    // 取得 Modal，確保 `bootstrap.Modal` 正確運作
+    const modalElement = document.getElementById("productModal");
+    const modal = new bootstrap.Modal(modalElement);
     modal.show();
   };
 
@@ -85,7 +89,10 @@ const AdminProduct = () => {
         });
       }
       fetchProducts();
-      document.getElementById("closeModal").click();
+      // 關閉 Modal
+      const modalElement = document.getElementById("productModal");
+      const modal = bootstrap.Modal.getInstance(modalElement);
+      modal.hide();
     } catch (error) {
       console.error("儲存產品失敗：", error);
     }
@@ -204,8 +211,7 @@ const AdminProduct = () => {
               <button
                 type="button"
                 className="btn btn-secondary"
-                data-bs-dismiss="modal"
-                id="closeModal">
+                data-bs-dismiss="modal">
                 取消
               </button>
               <button
