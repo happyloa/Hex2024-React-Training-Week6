@@ -8,3 +8,34 @@ img {
   object-fit: contain;
   max-width: 100%;
 }
+
+/* ---- 側邊卷軸 (Scrollbar) 客製化 ---- */
+/* 適用 WebKit 瀏覽器 (Chrome, Edge, Safari, Brave) */
+::-webkit-scrollbar {
+  width: 10px; /* 卷軸寬度 */
+  height: 10px; /* 水平卷軸高度 */
+}
+
+/* 卷軸背景 */
+::-webkit-scrollbar-track {
+  background: #f4f4f4; /* 背景顏色 */
+  border-radius: 10px; /* 圓角 */
+}
+
+/* 卷軸拖動區 */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #007bff, #6610f2); /* 漸層顏色 */
+  border-radius: 10px; /* 圓角 */
+  transition: all 0.3s ease-in-out;
+}
+
+/* 滑鼠懸停時的卷軸效果 */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #0056b3, #520dc2); /* 深色漸層 */
+}
+
+/* 適用 Firefox (非 WebKit) */
+html {
+  scrollbar-color: #007bff #f4f4f4; /* 卷軸顏色、背景顏色 */
+  scrollbar-width: thin; /* 變細 */
+}
