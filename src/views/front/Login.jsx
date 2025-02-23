@@ -27,59 +27,94 @@ const Login = () => {
   };
 
   return (
-    <div className="container login mt-5">
-      <div className="row justify-content-center">
-        <h1 className="h3 mb-3 font-weight-normal">請先登入</h1>
-        <div className="col-8">
-          <form id="form" className="form-signin" onSubmit={handleSubmit(onSubmit)}>
+    <div>
+      {/* Hero 區塊 */}
+      <section
+        className="hero position-relative text-center text-white d-flex align-items-center"
+        style={{
+          background:
+            "url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1920&auto=format&fit=crop') center/cover",
+          height: "400px",
+        }}>
+        {/* 遮罩層 */}
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100"
+          style={{ background: "rgba(0, 0, 0, 0.6)", zIndex: "1" }}></div>
+
+        {/* Hero 內文 */}
+        <div className="container position-relative z-2">
+          <h1 className="display-4 fw-bold">🔑 管理者後台登入</h1>
+        </div>
+      </section>
+
+      {/* 登入表單 */}
+      <div
+        className="container d-flex justify-content-center align-items-center"
+        style={{ minHeight: "60vh" }}>
+        <div
+          className="card shadow-lg p-4 border-0 rounded-3"
+          style={{ maxWidth: "400px", width: "100%" }}>
+          <h2 className="text-center mb-4">請先登入</h2>
+          <form id="form" onSubmit={handleSubmit(onSubmit)}>
+            {/* Email 輸入框 */}
             <div className="form-floating mb-3">
               <input
                 type="email"
-                className={`form-control ${errors.username ? "is-invalid" : ""}`}
+                className={`form-control shadow-sm ${
+                  errors.username ? "is-invalid" : ""
+                }`}
                 id="username"
                 placeholder="name@example.com"
                 {...register("username", {
-                  required: "Email is required",
+                  required: "請輸入 Email",
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Invalid email format",
+                    message: "Email 格式不正確",
                   },
                 })}
               />
-              <label htmlFor="username">Email address</label>
+              <label htmlFor="username">📧 Email</label>
               {errors.username && (
-                <div className="invalid-feedback">{errors.username.message}</div>
+                <div className="invalid-feedback">
+                  {errors.username.message}
+                </div>
               )}
             </div>
-            <div className="form-floating">
+
+            {/* 密碼輸入框 */}
+            <div className="form-floating mb-3">
               <input
                 type="password"
-                className={`form-control ${errors.password ? "is-invalid" : ""}`}
+                className={`form-control shadow-sm ${
+                  errors.password ? "is-invalid" : ""
+                }`}
                 id="password"
                 placeholder="Password"
                 {...register("password", {
-                  required: "Password is required",
+                  required: "請輸入密碼",
                   minLength: {
                     value: 6,
-                    message: "Password must be at least 6 characters",
+                    message: "密碼長度需至少 6 位",
                   },
                 })}
               />
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">🔒 密碼</label>
               {errors.password && (
-                <div className="invalid-feedback">{errors.password.message}</div>
+                <div className="invalid-feedback">
+                  {errors.password.message}
+                </div>
               )}
             </div>
+
+            {/* 登入按鈕 */}
             <button
-              className="btn btn-lg btn-primary w-100 mt-3"
-              type="submit"
-            >
-              登入
+              className="btn btn-lg btn-primary w-100 mt-3 shadow-sm"
+              type="submit">
+              立即登入
             </button>
           </form>
         </div>
       </div>
-      <p className="mt-5 mb-3 text-muted">&copy; 2024~∞ - 六角學院</p>
     </div>
   );
 };
