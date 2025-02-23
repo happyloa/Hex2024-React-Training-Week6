@@ -10,7 +10,7 @@ const AdminProduct = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [tempProduct, setTempProduct] = useState({});
-  const [isEdit, setIsEdit] = useState(false); // 區分新增/編輯狀態
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     const token = document.cookie.replace(
@@ -61,7 +61,6 @@ const AdminProduct = () => {
     setIsEdit(!!product.id);
     setTempProduct(product);
 
-    // 取得 Modal，確保 `bootstrap.Modal` 正確運作
     const modalElement = document.getElementById("productModal");
     const modal = new bootstrap.Modal(modalElement);
     modal.show();
@@ -89,7 +88,6 @@ const AdminProduct = () => {
         });
       }
       fetchProducts();
-      // 關閉 Modal
       const modalElement = document.getElementById("productModal");
       const modal = bootstrap.Modal.getInstance(modalElement);
       modal.hide();
@@ -104,7 +102,7 @@ const AdminProduct = () => {
       <button
         className="btn btn-success mb-3"
         onClick={() => openProductModal({})}>
-        ➕ 新增產品
+        <i className="fas fa-plus"></i> 新增產品
       </button>
 
       {/* 產品列表 */}
@@ -123,17 +121,23 @@ const AdminProduct = () => {
               <tr key={product.id}>
                 <td>{product.title}</td>
                 <td>NT${product.price}</td>
-                <td>{product.is_enabled ? "✔️ 上架" : "❌ 未上架"}</td>
+                <td>
+                  {product.is_enabled ? (
+                    <i className="fas fa-check text-success"></i>
+                  ) : (
+                    <i className="fas fa-times text-danger"></i>
+                  )}
+                </td>
                 <td>
                   <button
                     className="btn btn-warning btn-sm me-2"
                     onClick={() => openProductModal(product)}>
-                    ✏️ 編輯
+                    <i className="fas fa-edit"></i> 編輯
                   </button>
                   <button
                     className="btn btn-danger btn-sm"
                     onClick={() => deleteProduct(product.id)}>
-                    🗑️ 刪除
+                    <i className="fas fa-trash-alt"></i> 刪除
                   </button>
                 </td>
               </tr>
@@ -141,7 +145,7 @@ const AdminProduct = () => {
           ) : (
             <tr>
               <td colSpan="4" className="text-center text-muted">
-                無產品資料
+                <i className="fas fa-spinner fa-spin"></i> 載入中...
               </td>
             </tr>
           )}
@@ -154,6 +158,11 @@ const AdminProduct = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">
+                {isEdit ? (
+                  <i className="fas fa-edit"></i>
+                ) : (
+                  <i className="fas fa-plus"></i>
+                )}{" "}
                 {isEdit ? "編輯產品" : "新增產品"}
               </h5>
               <button
@@ -202,8 +211,12 @@ const AdminProduct = () => {
                       is_enabled: e.target.value === "1",
                     })
                   }>
-                  <option value="1">✔️ 上架</option>
-                  <option value="0">❌ 未上架</option>
+                  <option value="1">
+                    <i className="fas fa-check text-success"></i> 上架
+                  </option>
+                  <option value="0">
+                    <i className="fas fa-times text-danger"></i> 未上架
+                  </option>
                 </select>
               </div>
             </div>
