@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
 const Home = () => {
-  const [books, setBooks] = useState([]); // 儲存租書產品（書籍）
+  const [books, setBooks] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         const res = await axios.get(`${API_BASE}/api/${API_PATH}/products`);
-        setBooks(res.data.products); // 設定產品資料
+        setBooks(res.data.products);
       } catch (error) {
         console.error("獲取書籍時發生錯誤：", error);
       }
@@ -21,17 +22,33 @@ const Home = () => {
     fetchBooks();
   }, []);
 
+  // 直接導向詳細頁面並傳遞數據
+  const handleViewMore = async (id) => {
+    try {
+      const res = await axios.get(`${API_BASE}/api/${API_PATH}/product/${id}`);
+      navigate(`/product/${id}`, { state: { productData: res.data } });
+    } catch (error) {
+      console.error("取得產品資料失敗", error);
+    }
+  };
+
   return (
     <div>
       {/* Hero 區塊 */}
       <section
-        className="hero text-center text-white d-flex align-items-center"
+        className="hero position-relative text-center text-white d-flex align-items-center"
         style={{
           background:
             "url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2128&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover",
           height: "400px",
         }}>
-        <div className="container">
+        {/* 遮罩層 */}
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100"
+          style={{ background: "rgba(0, 0, 0, 0.6)", zIndex: "1" }}></div>
+
+        {/* Hero 內文 */}
+        <div className="container position-relative z-2">
           <h1 className="display-4 fw-bold">探索無限知識，輕鬆租借書籍</h1>
           <p className="lead">
             數千本書籍任你選擇，隨時隨地輕鬆租借，開啟你的閱讀之旅！
@@ -102,18 +119,21 @@ const Home = () => {
                     src={book.imageUrl}
                     className="card-img-top"
                     alt={book.title}
+                    style={{ height: "250px", objectFit: "cover" }}
                   />
-                  <div className="card-body">
-                    <h5 className="card-title">{book.title}</h5>
-                    <p className="card-text text-muted">
-                      {book.description.substring(0, 50)}...
+                  <div className="card-body d-flex flex-column">
+                    <h5 className="card-title fw-bold">{book.title}</h5>
+                    <p className="card-text text-muted text-truncate">
+                      {book.description}
                     </p>
-                    <p className="fw-bold text-primary">NT${book.price} / 週</p>
-                    <Link
-                      to={`/book/${book.id}`}
-                      className="btn btn-outline-primary w-100">
+                    <p className="fw-bold text-primary fs-5">
+                      NT${book.price} / 週
+                    </p>
+                    <button
+                      className="btn btn-outline-primary w-100 mt-auto"
+                      onClick={() => handleViewMore(book.id)}>
                       查看詳情
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
